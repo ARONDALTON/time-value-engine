@@ -1,0 +1,38 @@
+{
+  "name": "time-value-engine",
+  "version": "0.0.0",
+  "description": "Time Value of Money Calculator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevinsherman/time-value-engine.git"
+  },
+  "scripts": {
+    "test": "karma start"
+  },
+  "keywords": [
+    "time value",
+    "amortize",
+    "discounted cash flows",
+    "amortization"
+  ],
+  "author": "kevinsherman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevinsherman/time-value-engine/issues"
+  },
+  "main": "dist/index.js",
+  "types": "./index.d.ts",
+  "homepage": "https://github.com/kevinsherman/time-value-engine#readme",
+  "devDependencies": {
+    "@types/jasmine": "^2.5.43",
+    "jasmine": "^2.5.3",
+    "karma": "^1.4.1",
+    "karma-jasmine": "^1.1.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-spec-reporter": "0.0.26",
+    "karma-typescript": "^2.1.7",
+    "phantomjs-prebuilt": "^2.1.14",
+    "typescript": "^2.1.6"
+  }
+}

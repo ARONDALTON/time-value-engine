@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es5",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "declaration": true,
+        "moduleResolution": "node",
+        "outDir": "dist"
+    },
+    "files": [
+        "index.ts",
+        "tests/index.spec.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
