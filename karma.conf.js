@@ -11,6 +11,6 @@ module.exports = function(config) {
     preprocessors : {
         '**/*.ts': ['karma-typescript']
     },
-    singleRun: true
+    singleRun: false
  });
 };

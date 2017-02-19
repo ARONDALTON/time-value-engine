@@ -1,12 +1,15 @@
-export class Greeter {
 
-    private _message: string;
+// stores user preferences
+export class TimeValueUser {
 
-    constructor(message: string) {
-        this._message = message;
-    }
+}
 
-    public speak(): string {
-        return this._message;
-    }
+// stores information about a particular problem you are trying to solve
+export class TimeValueCashFlowMatrix {
+
+}
+
+// individual line that makes up the TimeValueCashFlowMatrix
+export class TimeValueEvent {
+
 }
