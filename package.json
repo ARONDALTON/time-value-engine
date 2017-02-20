@@ -1,13 +1,14 @@
 {
   "name": "time-value-engine",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "Time Value of Money Calculator",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevinsherman/time-value-engine.git"
   },
   "scripts": {
-    "test": "karma start"
+    "test": "karma start",
+    "postinstall": "tsc"
   },
   "keywords": [
     "time value",
