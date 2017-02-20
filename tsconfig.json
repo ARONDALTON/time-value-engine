@@ -11,8 +11,7 @@
         "outDir": "dist"
     },
     "files": [
-        "index.ts",
-        "tests/index.spec.ts"
+        "index.ts"
     ],
     "exclude": [
         "node_modules",
