@@ -6,7 +6,8 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         { pattern: 'tests/index.spec.ts'},
-        { pattern: './index.ts'}
+        { pattern: './index.ts'},
+        { pattern: 'src/**/*.ts'}
     ],
     preprocessors : {
         '**/*.ts': ['karma-typescript']
