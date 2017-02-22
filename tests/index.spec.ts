@@ -99,3 +99,29 @@ describe('should calculate payment on a fixed rate loan', () => {
         expect(monthlyPayment).toEqual(tvAnswer);
     })
 })
+
+describe('convert annual interest rate to effective interest rate', () => {
+    it('test 1', () => {
+        let cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = .06;
+        cfm.compounding = Compounding.TVMonthlyCompound;
+        let ear = cfm.getEffectiveInterstRate();
+        expect(ear).toEqual(0.06167781186449761);
+    });
+    it('test 2', () => {
+        let cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = .1;
+        cfm.compounding = Compounding.TVAnnualCompound;
+        let ear = cfm.getEffectiveInterstRate();
+        let answer = 0.10000000000000009;
+        expect(ear).toEqual(answer);
+    });
+    it('test 2', () => {
+        let cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = .199;
+        cfm.compounding = Compounding.TVDailyCompound;
+        let ear = cfm.getEffectiveInterstRate();
+        let answer = 0.22011579937864711;
+        expect(ear).toEqual(answer);
+    });
+});

@@ -23,20 +23,20 @@ export enum AmortizationLineType {
 }
 
 export enum Compounding {
-    TVContinuousCompound = 0,
-    TVExactDaysCompound = 1,
-    TVDailyCompound = 2,
-    TVWeeklyCompound = 3,
-    TVBiWeeklyCompound = 4,
-    TVHalfMonthCompound = 5,
-    TVMonthlyCompound = 6,
-    TVTwoMonthCompound = 7,
-    TVQuarterlyCompound = 8,
-    TVFourMonthCompound = 9,
-    TVFourWeekCompound = 10,
-    TVSemiannualCompound = 11,
-    TVAnnualCompound = 12,
-    TVNoCompound = 13
+    TVWeeklyCompound = 52,
+    TVBiWeeklyCompound = 26,
+    TVHalfMonthCompound = 24,
+    TVMonthlyCompound = 12,
+    TVTwoMonthCompound = 6,
+    TVQuarterlyCompound = 4,
+    TVFourMonthCompound = 3,
+    TVFourWeekCompound = 13,
+    TVSemiannualCompound = 2,
+    TVAnnualCompound = 1,
+    TVContinuousCompound = 100,
+    TVExactDaysCompound = 101,
+    TVDailyCompound = 102,
+    TVNoCompound = 103
 }
 
 export enum ComputeMethod {
