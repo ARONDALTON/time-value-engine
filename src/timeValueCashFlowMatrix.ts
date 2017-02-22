@@ -12,7 +12,6 @@ export class TimeValueCashFlowMatrix {
     // is the periodic interest rate multiplied by the number of periods per year.
     public nominalAnnualRate: number;
     public yearLength: YearLength = YearLength.Y_365;
-    public static decimalPlaces: number = 2;
     public cashFlowEvents: TimeValueEvent[] = [];
 
     // derived
@@ -48,7 +47,7 @@ export class TimeValueCashFlowMatrix {
         if (this.compounding < 100) {
             return this.compounding;
         } else {
-            if (this.compounding = Compounding.TVDailyCompound) {
+            if (this.compounding === Compounding.TVDailyCompound) {
                 return this.yearLength;
             } else {
                 throw new RangeError("need to figure this out");
