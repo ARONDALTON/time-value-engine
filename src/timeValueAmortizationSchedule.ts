@@ -1,4 +1,4 @@
-import { Compounding } from './enums';
+import { Compounding } from "./enums";
 
 export class TimeValueAmortizationSchedule {
     rouding: number;

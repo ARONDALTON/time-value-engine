@@ -19,7 +19,7 @@ export enum AmortizationLineType {
     TVMonthTotalLine = 49,
     TVQuarterTotalLine = 50,
     TVAnnualTotalLine = 51,
-    TVGrandTotalLine = 52
+    TVGrandTotalLine = 52,
 }
 
 export enum Compounding {
@@ -36,14 +36,14 @@ export enum Compounding {
     TVContinuousCompound = 100,
     TVExactDaysCompound = 101,
     TVDailyCompound = 102,
-    TVNoCompound = 103
+    TVNoCompound = 103,
 }
 
 export enum ComputeMethod {
     TVNormalAmortization = 0,
     TVRule78Amortization = 1,
     TVUSRuleAmortization = 2,
-    TVCanadianAmortization = 3
+    TVCanadianAmortization = 3,
 }
 
 export enum EventType {
@@ -64,17 +64,17 @@ export enum EventType {
     TVUserDepositEvent3 = 21,
     TVUserWithdrawalEvent1 = 15,
     TVUserWithdrawalEvent2 = 22,
-    TVUserWithdrawalEvent3 = 23
+    TVUserWithdrawalEvent3 = 23,
 }
 
 export enum TV_UNKNOWN {
     AMOUNT = -10000000000,
     RATE = -10000000001,
-    EVENT_NUMBER = -10000000002
+    EVENT_NUMBER = -10000000002,
 }
 
 export enum YearLength {
     Y_360 = 360,
     Y_364 = 364,
-    Y_365 = 365
+    Y_365 = 365,
 }

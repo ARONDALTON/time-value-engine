@@ -1,6 +1,6 @@
-import { ComputeMethod, Compounding, YearLength } from './enums';
-import { TimeValueEvent } from './timeValueEvent';
-import { TimeValueResult } from './timeValueResult';
+import { Compounding, ComputeMethod, YearLength } from "./enums";
+import { TimeValueEvent } from "./timeValueEvent";
+import { TimeValueResult } from "./timeValueResult";
 
 // stores information about a particular problem you are trying to solve
 export class TimeValueCashFlowMatrix {
@@ -27,19 +27,19 @@ export class TimeValueCashFlowMatrix {
     }
 
     getPeriodicInterestRate(): number {
-        switch(this.compounding) {
+        switch (this.compounding) {
             case Compounding.TVAnnualCompound:
                 return this.nominalAnnualRate / 12;
         }
     }
 // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
-// http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php 
+// http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
     getEffectiveInterstRate(): number {
-        
-        let i = this.nominalAnnualRate;
-        let n = this.getCompoudingPeriods();
-        
-        let ret = Math.pow(1 + i/n, n) - 1;
+
+        const i = this.nominalAnnualRate;
+        const n = this.getCompoudingPeriods();
+
+        const ret = Math.pow(1 + i / n, n) - 1;
         return ret;
     }
 

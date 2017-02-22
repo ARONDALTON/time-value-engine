@@ -1,48 +1,48 @@
 import {
-    Compounding, 
-    ComputeMethod, 
-    EventType, 
+    Compounding,
+    ComputeMethod,
+    EventType,
     LoanParameters,
     PaymentOnFixedRateLoan,
-    TimeValueCashFlowMatrix, 
-    TimeValueEvent, 
-    TimeValueResult, 
-    TV_UNKNOWN, 
-    YearLength
-} from '../index';
+    TimeValueCashFlowMatrix,
+    TimeValueEvent,
+    TimeValueResult,
+    TV_UNKNOWN,
+    YearLength,
+} from "../index";
 
-describe('my first test', () => {
-    it('should be true', () => {
+describe("my first test", () => {
+    it("should be true", () => {
         expect(true).toBeTruthy();
     });
-    it('should be false', () => {
+    it("should be false", () => {
         expect(false).toBeFalsy();
     });
 });
 
-describe('TimeValueUser tests', () => {
+describe("TimeValueUser tests", () => {
 
 });
 
-describe('TimeValueCashFlowMatrix tests', () => {
+describe("TimeValueCashFlowMatrix tests", () => {
 
 });
 
-describe('TimeValueEvent tests', () => {
+describe("TimeValueEvent tests", () => {
 
 });
 
-describe('Setup TValue Problem', () => {
+describe("Setup TValue Problem", () => {
     /*
-    Facts   Miller Equipment Co. sells machinery to Wendland on June 11, 2001 for $27,000.  They allow a trade-in of $4000 on used equipment and take a 9 percent note calling for 28 equal monthly payments beginning on August 3, 2001. 
-    
-    Needed   The monthly payment amount. 
+    Facts   Miller Equipment Co. sells machinery to Wendland on June 11, 2001 for $27,000.  They allow a trade-in of $4000 on used equipment and take a 9 percent note calling for 28 equal monthly payments beginning on August 3, 2001.
+
+    Needed   The monthly payment amount.
     TimeValueEvent
-    Settings  This example assumes Normal amortization, 365 day year. 
+    Settings  This example assumes Normal amortization, 365 day year.
     */
 
     // Arrange:
-    let cfm = new TimeValueCashFlowMatrix(); //user.TimeValueCashFlowMatrix;
+    const cfm = new TimeValueCashFlowMatrix(); //user.TimeValueCashFlowMatrix;
     let cfe: TimeValueEvent;
     let tvr: TimeValueResult;
     let payment: number; // <-- What we're trying to find
@@ -56,21 +56,21 @@ describe('Setup TValue Problem', () => {
     // first cash flow line (the loan)
     cfe = new TimeValueEvent();
     cfe.eventType = EventType.TVLoanEvent;
-    cfe.eventDate = new Date(2001,6,11);
+    cfe.eventDate = new Date(2001, 6, 11);
     cfe.eventAmount = 27000;
     cfm.cashFlowEvents.push(cfe);
 
     // second cash flow line (the $4000 trade in)
     cfe = new TimeValueEvent();
     cfe.eventType = EventType.TVPaymentEvent;
-    cfe.eventDate = new Date(2001,6,11);
+    cfe.eventDate = new Date(2001, 6, 11);
     cfe.eventAmount = 4000;
     cfm.cashFlowEvents.push(cfe);
 
     // third cash flow line (the payments)
     cfe = new TimeValueEvent();
     cfe.eventType = EventType.TVPaymentEvent;
-    cfe.eventDate = new Date(2001,8,3);
+    cfe.eventDate = new Date(2001, 8, 3);
     cfe.eventAmount = TV_UNKNOWN.AMOUNT;
     cfe.eventNumber = 28;
     cfm.cashFlowEvents.push(cfe);
@@ -81,47 +81,47 @@ describe('Setup TValue Problem', () => {
     // Assert
     payment = tvr.unknownValue;
 
-    it('should match book amount', () => {
+    it("should match book amount", () => {
         expect(payment).toEqual(0);
     });
 });
 
-describe('should calculate payment on a fixed rate loan', () => {
-    it('should equal 699.21', () => {
-        let params: LoanParameters = {
+describe("should calculate payment on a fixed rate loan", () => {
+    it("should equal 699.21", () => {
+        const params: LoanParameters = {
             amount: 100000,
             interest: 0.075,
-            term: 360
+            term: 360,
         };
 
-        let monthlyPayment = +(PaymentOnFixedRateLoan(params).toFixed(2));
-        let tvAnswer = 699.21;
+        const monthlyPayment = +(PaymentOnFixedRateLoan(params).toFixed(2));
+        const tvAnswer = 699.21;
         expect(monthlyPayment).toEqual(tvAnswer);
-    })
-})
+    });
+});
 
-describe('convert annual interest rate to effective interest rate', () => {
-    it('test 1', () => {
-        let cfm = new TimeValueCashFlowMatrix();
+describe("convert annual interest rate to effective interest rate", () => {
+    it("test 1", () => {
+        const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .06;
         cfm.compounding = Compounding.TVMonthlyCompound;
-        let ear = cfm.getEffectiveInterstRate();
+        const ear = cfm.getEffectiveInterstRate();
         expect(ear).toEqual(0.06167781186449761);
     });
-    it('test 2', () => {
-        let cfm = new TimeValueCashFlowMatrix();
+    it("test 2", () => {
+        const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .1;
         cfm.compounding = Compounding.TVAnnualCompound;
-        let ear = cfm.getEffectiveInterstRate();
-        let answer = 0.10000000000000009;
+        const ear = cfm.getEffectiveInterstRate();
+        const answer = 0.10000000000000009;
         expect(ear).toEqual(answer);
     });
-    it('test 2', () => {
-        let cfm = new TimeValueCashFlowMatrix();
+    it("test 2", () => {
+        const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .199;
         cfm.compounding = Compounding.TVDailyCompound;
-        let ear = cfm.getEffectiveInterstRate();
-        let answer = 0.22011579937864711;
+        const ear = cfm.getEffectiveInterstRate();
+        const answer = 0.22011579937864711;
         expect(ear).toEqual(answer);
     });
 });

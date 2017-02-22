@@ -1,4 +1,4 @@
-import { EventType } from './enums';
+import { EventType } from "./enums";
 
 // individual line that makes up the TimeValueCashFlowMatrix
 export class TimeValueEvent {

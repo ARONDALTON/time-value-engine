@@ -1,4 +1,4 @@
-import { AmortizationLineType } from './enums';
+import { AmortizationLineType } from "./enums";
 
 export class AmortizationLine {
     amortizationLineType: AmortizationLineType;
@@ -18,4 +18,4 @@ export class AmortizationLine {
     totalBalance: number;
     rateChangeRate: number;
     rateChangeCompounding: number;
-}import { TimeValueEvent } from './timeValueEvent';
+}import { TimeValueEvent } from "./timeValueEvent";
