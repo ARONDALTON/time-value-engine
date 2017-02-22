@@ -4,29 +4,30 @@ import { TimeValueResult } from "./timeValueResult";
 
 // stores information about a particular problem you are trying to solve
 export class TimeValueCashFlowMatrix {
-    label: string;
-    decimalPlaces: number = 2;
-    computeMethod: ComputeMethod;
-    compounding: Compounding;
-    //The nominal interest rate (also known as an Annualized Percentage Rate or APR) is the periodic interest rate multiplied by the number of periods per year.
-    nominalAnnualRate: number;
-    yearLength: YearLength = YearLength.Y_365;
+    public label: string;
+    public decimalPlaces: number = 2;
+    public computeMethod: ComputeMethod;
+    public compounding: Compounding;
+    // The nominal interest rate (also known as an Annualized Percentage Rate or APR)
+    // is the periodic interest rate multiplied by the number of periods per year.
+    public nominalAnnualRate: number;
+    public yearLength: YearLength = YearLength.Y_365;
     public static decimalPlaces: number = 2;
-    cashFlowEvents: TimeValueEvent[] = [];
+    public cashFlowEvents: TimeValueEvent[] = [];
 
     // derived
-    // The effective interest rate is always calculated as if compounded annually. The effective rate is calculated in the following way, where r is the effective rate, i the nominal rate (as a decimal, e.g. 12% = 0.12), and n the number of compounding periods per year (for example, 12 for monthly // compounding):
-    effectiveInterestRate: number;
-    periodicInterestRate: number;
+    // The effective interest rate is always calculated as if compounded annually. The effective
+    // rate is calculated in the following way, where r is the effective rate, i the nominal rate (as a decimal,
+    // e.g. 12% = 0.12), and n the number of compounding periods per year (for example, 12 for monthly
+    // compounding):
+    public effectiveInterestRate: number;
+    public periodicInterestRate: number;
 
-    calculate() : TimeValueResult {
-
-
-
+    public calculate(): TimeValueResult {
         return new TimeValueResult();
     }
 
-    getPeriodicInterestRate(): number {
+    public getPeriodicInterestRate(): number {
         switch (this.compounding) {
             case Compounding.TVAnnualCompound:
                 return this.nominalAnnualRate / 12;
@@ -34,7 +35,7 @@ export class TimeValueCashFlowMatrix {
     }
 // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
 // http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
-    getEffectiveInterstRate(): number {
+    public getEffectiveInterestRate(): number {
 
         const i = this.nominalAnnualRate;
         const n = this.getCompoudingPeriods();
@@ -43,15 +44,13 @@ export class TimeValueCashFlowMatrix {
         return ret;
     }
 
-    getCompoudingPeriods() : number {
+    public getCompoudingPeriods(): number {
         if (this.compounding < 100) {
             return this.compounding;
-        }
-        else {
+        } else {
             if (this.compounding = Compounding.TVDailyCompound) {
                 return this.yearLength;
-            }
-            else {
+            } else {
                 throw new RangeError("need to figure this out");
             }
         }

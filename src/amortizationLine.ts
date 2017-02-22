@@ -1,21 +1,21 @@
 import { AmortizationLineType } from "./enums";
 
 export class AmortizationLine {
-    amortizationLineType: AmortizationLineType;
-    date: Date;
-    sequenceNumber: number;
-    loan1Amount: number;
-    loan2Amount: number;
-    loan3Amount: number;
-    payment1Amount: number;
-    payment2Amount: number;
-    payment3Amount: number;
-    interestAccrued: number;
-    interestPaid: number;
-    principalPaid: number;
-    unpaidInterestBalance: number;
-    principalBalance: number;
-    totalBalance: number;
-    rateChangeRate: number;
-    rateChangeCompounding: number;
+    public amortizationLineType: AmortizationLineType;
+    public date: Date;
+    public sequenceNumber: number;
+    public loan1Amount: number;
+    public loan2Amount: number;
+    public loan3Amount: number;
+    public payment1Amount: number;
+    public payment2Amount: number;
+    public payment3Amount: number;
+    public interestAccrued: number;
+    public interestPaid: number;
+    public principalPaid: number;
+    public unpaidInterestBalance: number;
+    public principalBalance: number;
+    public totalBalance: number;
+    public rateChangeRate: number;
+    public rateChangeCompounding: number;
 }import { TimeValueEvent } from "./timeValueEvent";

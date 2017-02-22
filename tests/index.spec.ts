@@ -34,7 +34,9 @@ describe("TimeValueEvent tests", () => {
 
 describe("Setup TValue Problem", () => {
     /*
-    Facts   Miller Equipment Co. sells machinery to Wendland on June 11, 2001 for $27,000.  They allow a trade-in of $4000 on used equipment and take a 9 percent note calling for 28 equal monthly payments beginning on August 3, 2001.
+    Facts   Miller Equipment Co. sells machinery to Wendland on June 11, 2001 for $27,000.
+    They allow a trade-in of $4000 on used equipment and take a 9 percent note calling for 28 equal
+    monthly payments beginning on August 3, 2001.
 
     Needed   The monthly payment amount.
     TimeValueEvent
@@ -42,7 +44,7 @@ describe("Setup TValue Problem", () => {
     */
 
     // Arrange:
-    const cfm = new TimeValueCashFlowMatrix(); //user.TimeValueCashFlowMatrix;
+    const cfm = new TimeValueCashFlowMatrix();
     let cfe: TimeValueEvent;
     let tvr: TimeValueResult;
     let payment: number; // <-- What we're trying to find
@@ -105,14 +107,14 @@ describe("convert annual interest rate to effective interest rate", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .06;
         cfm.compounding = Compounding.TVMonthlyCompound;
-        const ear = cfm.getEffectiveInterstRate();
+        const ear = cfm.getEffectiveInterestRate();
         expect(ear).toEqual(0.06167781186449761);
     });
     it("test 2", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .1;
         cfm.compounding = Compounding.TVAnnualCompound;
-        const ear = cfm.getEffectiveInterstRate();
+        const ear = cfm.getEffectiveInterestRate();
         const answer = 0.10000000000000009;
         expect(ear).toEqual(answer);
     });
@@ -120,7 +122,7 @@ describe("convert annual interest rate to effective interest rate", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .199;
         cfm.compounding = Compounding.TVDailyCompound;
-        const ear = cfm.getEffectiveInterstRate();
+        const ear = cfm.getEffectiveInterestRate();
         const answer = 0.22011579937864711;
         expect(ear).toEqual(answer);
     });

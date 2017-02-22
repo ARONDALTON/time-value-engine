@@ -1,5 +1,5 @@
 export class TimeValueResult {
-    unknownValue: number = 0;
-    roundingAmount: number = 0;
-    roundingDate: Date;
+    public unknownValue: number = 0;
+    public roundingAmount: number = 0;
+    public roundingDate: Date;
 }

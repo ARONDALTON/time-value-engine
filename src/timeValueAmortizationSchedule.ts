@@ -1,11 +1,11 @@
 import { Compounding } from "./enums";
 
 export class TimeValueAmortizationSchedule {
-    rouding: number;
-    compounding: Compounding;
-    nominalAnnualRate: number;
-    APR: number;
-    financeCharge: number;
-    amountFinanced: number;
-    totalOfPayments: number;
+    public rouding: number;
+    public compounding: Compounding;
+    public nominalAnnualRate: number;
+    public APR: number;
+    public financeCharge: number;
+    public amountFinanced: number;
+    public totalOfPayments: number;
 }
