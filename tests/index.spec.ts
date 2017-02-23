@@ -104,22 +104,23 @@ describe("convert annual interest rate to effective interest rate", () => {
         cfm.nominalAnnualRate = .06;
         cfm.compounding = Compounding.TVMonthlyCompound;
         const ear = cfm.getEffectiveInterestRate();
-        expect(ear).toEqual(0.06167781186449761);
+        const answer = +(ear.toFixed(4));
+        expect(answer).toEqual(0.0617);
     });
     it("test 2", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .1;
         cfm.compounding = Compounding.TVAnnualCompound;
         const ear = cfm.getEffectiveInterestRate();
-        const answer = 0.10000000000000009;
-        expect(ear).toEqual(answer);
+        const answer = +(ear.toFixed(4));
+        expect(answer).toEqual(0.1000);
     });
     it("test 2", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .199;
         cfm.compounding = Compounding.TVDailyCompound;
         const ear = cfm.getEffectiveInterestRate();
-        const answer = 0.22011579937864711;
-        expect(ear).toEqual(answer);
+        const answer = +(ear.toFixed(4));
+        expect(answer).toEqual(0.2201);
     });
 });
