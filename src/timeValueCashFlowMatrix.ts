@@ -26,14 +26,8 @@ export class TimeValueCashFlowMatrix {
         return new TimeValueResult();
     }
 
-    public getPeriodicInterestRate(): number {
-        switch (this.compounding) {
-            case Compounding.TVAnnualCompound:
-                return this.nominalAnnualRate / 12;
-        }
-    }
-// http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
-// http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
+    // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
+    // http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
     public getEffectiveInterestRate(): number {
 
         const i = this.nominalAnnualRate;
