@@ -2,6 +2,7 @@ import {
     Compounding,
     ComputeMethod,
     EventType,
+    FutureValue,
     ILoanParameters,
     PaymentOnFixedRateLoan,
     TimeValueCashFlowMatrix,
@@ -122,5 +123,16 @@ describe("convert annual interest rate to effective interest rate", () => {
         const ear = cfm.getEffectiveInterestRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.2201);
+    });
+});
+
+describe ("future value tests", () => {
+    it("should equal 105.00", () => {
+        const pv: number = 100;
+        const interest: number = .05;
+        const n: number = 1;
+
+        const answer = FutureValue(pv, interest, n);
+        expect(answer).toBe(105);
     });
 });

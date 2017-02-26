@@ -49,9 +49,3 @@ export class TimeValueCashFlowMatrix {
         }
     }
 }
-
-// export function PaymentOnFixedRateLoan(p: LoanParameters): number {
-//     let pInt = p.interest / 12;
-//     let monthlyPayment = p.amount * ( pInt / (1 - Math.pow(1 + pInt, -(p.term))));
-//     return monthlyPayment;
-// }

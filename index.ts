@@ -15,3 +15,8 @@ export function PaymentOnFixedRateLoan(p: ILoanParameters): number {
     const monthlyPayment = p.amount * ( pInt / (1 - Math.pow(1 + pInt, -(p.term))));
     return monthlyPayment;
 }
+
+export function FutureValue(pv: number, interest: number, n: number): number {
+    const multiplier = Math.pow((1 + interest), n);
+    return (pv * multiplier);
+}
