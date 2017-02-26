@@ -2,7 +2,7 @@ import {
     Compounding,
     ComputeMethod,
     EventType,
-    LoanParameters,
+    ILoanParameters,
     PaymentOnFixedRateLoan,
     TimeValueCashFlowMatrix,
     TimeValueEvent,
@@ -86,7 +86,7 @@ describe("Setup TValue Problem", () => {
 
 describe("should calculate payment on a fixed rate loan", () => {
     it("should equal 699.21", () => {
-        const params: LoanParameters = {
+        const params: ILoanParameters = {
             amount: 100000,
             interest: 0.075,
             term: 360,
