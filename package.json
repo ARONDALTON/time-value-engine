@@ -12,7 +12,8 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "postinstall": "npm run build",
-    "lint": "tslint **/*.ts --e **/*.d.ts"
+    "lint": "tslint **/*.ts --e **/*.d.ts",
+    "webpack": "webpack"
   },
   "keywords": [
     "time value",
@@ -30,6 +31,7 @@
   "homepage": "https://github.com/kevinsherman/time-value-engine#readme",
   "devDependencies": {
     "@types/jasmine": "^2.5.43",
+    "awesome-typescript-loader": "^3.0.8",
     "jasmine": "^2.5.3",
     "karma": "^1.4.1",
     "karma-jasmine": "^1.1.0",
@@ -38,10 +40,12 @@
     "karma-typescript": "^2.1.7",
     "phantomjs-prebuilt": "^2.1.14",
     "rimraf": "^2.6.0",
+    "source-map-loader": "^0.1.6",
     "tslint": "^4.4.2",
     "typescript": "^2.1.6"
   },
   "dependencies": {
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "webpack": "^2.2.1"
   }
 }
