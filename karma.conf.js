@@ -1,17 +1,21 @@
 module.exports = function(config) {
   config.set({
-    frameworks: ['jasmine', 'karma-typescript'],
-    reporters: ['progress', 'karma-typescript'],
-    browsers: ['PhantomJS'],
-    // list of files / patterns to load in the browser
-    files: [
-        { pattern: 'tests/index.spec.ts'},
-        { pattern: './index.ts'},
-        { pattern: 'src/**/*.ts'}
+    browsers: [
+        'PhantomJS'
     ],
-    preprocessors : {
-        '**/*.ts': ['karma-typescript']
-    },
-    singleRun: false
+    frameworks: [
+        'jasmine'
+    ],
+    files: [
+        'dist/tests/**/*.spec.js'
+    ],
+    plugins: [
+        'karma-webpack',
+        'karma-jasmine',
+        'karma-phantomjs-launcher'
+    ],
+    preprocessors: {
+        'dist/tests/**/*.spec.js': ['webpack'] 
+    }
  });
 };
