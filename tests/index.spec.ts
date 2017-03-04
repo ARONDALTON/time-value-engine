@@ -136,3 +136,66 @@ describe ("future value tests", () => {
         expect(answer).toBe(105);
     });
 });
+
+describe ("find interst rate", () => {
+    it("simplest example", () => {
+        const cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
+        cfm.compounding = Compounding.TVDailyCompound;
+
+        cfm.cashFlowEvents = [
+            {
+                eventAmount: 10000,
+                eventDate: new Date(2016, 0, 1),
+                eventNumber: 1,
+                eventType: EventType.TVLoanEvent,
+            },
+            {
+                eventAmount: 10100,
+                eventDate: new Date(2016, 1, 1),
+                eventNumber: 1,
+                eventType: EventType.TVPaymentEvent,
+            },
+        ];
+
+        const answer = cfm.calculate();
+
+        expect(answer.unknownValue).toEqual(.11774);
+        // tslint:disable-next-line:no-console
+        console.log("iterations: " + answer.numberOfIterations);
+    });
+
+    it("two payment example", () => {
+        const cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
+        cfm.compounding = Compounding.TVDailyCompound;
+
+        cfm.cashFlowEvents = [
+            {
+                eventAmount: 10000,
+                eventDate: new Date(2016, 0, 1),
+                eventNumber: 1,
+                eventType: EventType.TVLoanEvent,
+            },
+            {
+                eventAmount: 5050,
+                eventDate: new Date(2016, 1, 1),
+                eventNumber: 1,
+                eventType: EventType.TVPaymentEvent,
+            },
+            {
+                eventAmount: 5050,
+                eventDate: new Date(2016, 2, 1),
+                eventNumber: 1,
+                eventType: EventType.TVPaymentEvent,
+            },
+        ];
+
+        const answer = cfm.calculate();
+
+        expect(answer.unknownValue).toEqual(.08013);
+        // tslint:disable-next-line:no-console
+        console.log("iterations: " + answer.numberOfIterations);
+    });
+
+});
