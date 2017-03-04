@@ -1,14 +1,32 @@
-// this file is intended to represent usage of the file after npm-installing... 
+// // this file is intended to represent usage of the file after npm-installing... 
+var engine = require('time-value-engine');
 
-var i = require('./dist/index');
-var p = {
-    amount: 100000,
-    interest: 0.075,
-    term: 360,
-};
+let cfm = new engine.TimeValueCashFlowMatrix(); 
+cfm.nominalAnnualRate = engine.TV_UNKNOWN.RATE;
+cfm.compounding = engine.Compounding.TVDailyCompound;
 
-const monthlyPayment = +(i.PaymentOnFixedRateLoan(p).toFixed(2));
-console.log("monthly Payment: " + monthlyPayment);
-const tvAnswer = 699.21;
-const finalAnswer = tvAnswer - monthlyPayment;
-console.log("Final Answer: " + finalAnswer);
+cfm.cashFlowEvents = [
+    {
+        eventAmount: 10000,
+        eventDate: new Date(2016, 0, 1),
+        eventNumber: 1,
+        eventType: engine.EventType.TVLoanEvent,
+    },
+    {
+        eventAmount: 5050,
+        eventDate: new Date(2016, 1, 1),
+        eventNumber: 1,
+        eventType: engine.EventType.TVPaymentEvent,
+    },
+    {
+        eventAmount: 5050,
+        eventDate: new Date(2016, 2, 1),
+        eventNumber: 1,
+        eventType: engine.EventType.TVPaymentEvent,
+    },
+];
+
+let answer = cfm.calculate();
+
+console.log("Unknown value: " + answer.unknownValue);
+console.log("iterations: " + answer.numberOfIterations);
