@@ -32,11 +32,34 @@ export class TimeValueCashFlowMatrix {
         }
     }
 
+    // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
+    // http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
+    public getEffectiveInterestRate(): number {
+
+        const i = this.nominalAnnualRate;
+        const n = this.getCompoudingPeriods();
+
+        const ret = Math.pow(1 + i / n, n) - 1;
+        return ret;
+    }
+
+    public getCompoudingPeriods(): number {
+        if (this.compounding < 100) {
+            return this.compounding;
+        } else {
+            if (this.compounding === Compounding.TVDailyCompound) {
+                return this.yearLength;
+            } else {
+                throw new RangeError("need to figure this out");
+            }
+        }
+    }
+
     private findInterestRate(): TimeValueResult {
 
         let interestRate: number = 0;
-        let minRate = -1000;
-        let maxRate = 1000;
+        let minRate = -10000;
+        let maxRate = 10000;
 
         // setup: we have a matrix of events...
         const events = this.cashFlowEvents;
@@ -90,40 +113,13 @@ export class TimeValueCashFlowMatrix {
             numIts++;
         }
 
-
-
-        const derp: number = +((i * 365).toFixed(5));
-
         const tvr = {
             numberOfIterations: numIts,
             roundingAmount: 0,
             roundingDate: new Date(2016, 2, 1),
-            unknownValue: derp,
+            unknownValue: i * 365,
         };
 
         return tvr;
-    }
-
-    // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
-    // http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
-    public getEffectiveInterestRate(): number {
-
-        const i = this.nominalAnnualRate;
-        const n = this.getCompoudingPeriods();
-
-        const ret = Math.pow(1 + i / n, n) - 1;
-        return ret;
-    }
-
-    public getCompoudingPeriods(): number {
-        if (this.compounding < 100) {
-            return this.compounding;
-        } else {
-            if (this.compounding === Compounding.TVDailyCompound) {
-                return this.yearLength;
-            } else {
-                throw new RangeError("need to figure this out");
-            }
-        }
     }
 }

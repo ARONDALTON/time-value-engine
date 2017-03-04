@@ -158,11 +158,12 @@ describe ("find interst rate", () => {
             },
         ];
 
-        const answer = cfm.calculate();
+        const result = cfm.calculate();
+        const answer = +result.unknownValue.toFixed(5);
 
-        expect(answer.unknownValue).toEqual(.11774);
+        expect(answer).toEqual(.11774);
         // tslint:disable-next-line:no-console
-        console.log("iterations: " + answer.numberOfIterations);
+        console.log("iterations: " + result.numberOfIterations);
     });
 
     it("two payment example", () => {
@@ -191,11 +192,14 @@ describe ("find interst rate", () => {
             },
         ];
 
-        const answer = cfm.calculate();
+        const result = cfm.calculate();
+        const answer = +result.unknownValue.toFixed(5);
 
-        expect(answer.unknownValue).toEqual(.08013);
+        expect(answer).toEqual(.08013);
         // tslint:disable-next-line:no-console
-        console.log("iterations: " + answer.numberOfIterations);
+        console.log("iterations: " + result.numberOfIterations);
+        // tslint:disable-next-line:no-console
+        console.log("rate: " + result.unknownValue);
     });
 
 });
