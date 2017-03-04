@@ -8,13 +8,14 @@
         "sourceMap": true,
         "declaration": true,
         "moduleResolution": "node",
-        "outDir": "dist"
+        "outDir": "dist-tests"
     },
     "files": [
-        "index.ts"
+        "tests/index.spec.ts"
     ],
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "dist-tests"
     ]
 }

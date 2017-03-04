@@ -1,14 +1,15 @@
 {
   "name": "time-value-engine",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Time Value of Money Calculator",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevinsherman/time-value-engine.git"
   },
   "scripts": {
+    "pretest": "tsc -p tsconfig.test.json",
     "test": "concurrently 'npm run tsc:w' 'karma start karma.conf.js'",
-    "clean": "rimraf dist/*",
+    "clean": "rimraf dist*/",
     "prebuild": "npm run clean",
     "build": "tsc",
     "tsc:w": "tsc -w",

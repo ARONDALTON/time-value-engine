@@ -7,7 +7,7 @@ module.exports = function(config) {
         'jasmine'
     ],
     files: [
-        'dist/tests/**/*.spec.js'
+        'tests/**/*.spec.js'
     ],
     plugins: [
         'karma-webpack',
@@ -15,7 +15,7 @@ module.exports = function(config) {
         'karma-phantomjs-launcher'
     ],
     preprocessors: {
-        'dist/tests/**/*.spec.js': ['webpack'] 
+        'tests/**/*.spec.js': ['webpack'] 
     }
  });
 };
