@@ -1,6 +1,6 @@
 {
   "name": "time-value-engine",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Time Value of Money Calculator",
   "repository": {
     "type": "git",
@@ -13,7 +13,8 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "tsc:w": "tsc -w",
-    "lint": "tslint **/*.ts --e **/*.d.ts"
+    "lint": "tslint **/*.ts --e **/*.d.ts",
+    "postinstall": "npm run build"
   },
   "keywords": [
     "time value",
