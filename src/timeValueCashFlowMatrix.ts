@@ -1,3 +1,4 @@
+import * as moment from "moment";
 import { Compounding, ComputeMethod, TV_UNKNOWN, YearLength } from "./enums";
 import { TimeValueEvent } from "./timeValueEvent";
 import { TimeValueResult } from "./timeValueResult";
@@ -70,7 +71,7 @@ export class TimeValueCashFlowMatrix {
         let delta: number = 1; // needs to be greater than zero
         let lastDate: Date;
         let i: number;
-        let numIts: number = 0;
+        let iterations: number = 0;
 
         while (delta > remainder) {
 
@@ -85,15 +86,24 @@ export class TimeValueCashFlowMatrix {
                     interest = 0; // calculate interest;
                     principle = item.eventAmount;
                     remaining = principle;
-
+                    lastDate = item.eventDate;
+                    console.log("date: " + lastDate + " amount: " + item.eventAmount);
                 } else {
-                    days = (+item.eventDate - +lastDate) / 1000 / 60 / 60 / 24;
-                    interest = remaining * i * days;
-                    principle = item.eventAmount - interest;
-                    remaining = remaining - principle;
+
+                    // nested loop...
+                    // if this is five
+                    for (let z = 0; z < item.eventNumber; z++) {
+                        const thisDate = moment(item.eventDate).add(z, "months");
+                        days = (+thisDate - +lastDate) / 1000 / 60 / 60 / 24;
+                        interest = remaining * i * days;
+                        principle = item.eventAmount - interest;
+                        remaining = remaining - principle;
+                        lastDate = thisDate.toDate();
+                        // tslint:disable-next-line:max-line-length
+                        console.log("date: " + lastDate + " amount: " + item.eventAmount + " interest: " + interest + " " + principle + " remaining " + remaining);
+                    }
                 }
 
-                lastDate = item.eventDate;
                 counter++;
             }
 
@@ -110,11 +120,11 @@ export class TimeValueCashFlowMatrix {
             }
             interestRate = (maxRate + minRate) / 2;
 
-            numIts++;
+            iterations++;
         }
 
         const tvr = {
-            numberOfIterations: numIts,
+            iterations,
             roundingAmount: 0,
             roundingDate: new Date(2016, 2, 1),
             unknownValue: i * 365,

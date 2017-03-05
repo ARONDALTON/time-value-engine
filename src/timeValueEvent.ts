@@ -1,9 +1,11 @@
 import { EventType } from "./enums";
 
 // individual line that makes up the TimeValueCashFlowMatrix
-export class TimeValueEvent {
-    public eventDate: Date;
-    public eventType: EventType;
-    public eventAmount: number;
-    public eventNumber: number; // integer 1 to 999
+// tslint:disable-next-line:interface-name
+export interface TimeValueEvent {
+    eventDate: Date;
+    eventType: EventType;
+    eventAmount: number;
+    eventNumber: number; // integer 1 to 999
+    eventPeriod?: number;
 }

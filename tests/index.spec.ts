@@ -53,25 +53,33 @@ describe("Setup TValue Problem", () => {
     cfm.nominalAnnualRate = 0.09;
 
     // first cash flow line (the loan)
-    cfe = new TimeValueEvent();
-    cfe.eventType = EventType.TVLoanEvent;
-    cfe.eventDate = new Date(2001, 6, 11);
-    cfe.eventAmount = 27000;
+    cfe = {
+        eventAmount: 27000,
+        eventDate:  new Date(2001, 6, 11),
+        eventNumber: 1,
+        eventType: EventType.TVLoanEvent,
+    };
+
     cfm.cashFlowEvents.push(cfe);
 
     // second cash flow line (the $4000 trade in)
-    cfe = new TimeValueEvent();
-    cfe.eventType = EventType.TVPaymentEvent;
-    cfe.eventDate = new Date(2001, 6, 11);
-    cfe.eventAmount = 4000;
+    cfe = {
+        eventAmount: 4000,
+        eventDate:  new Date(2001, 6, 11),
+        eventNumber: 1,
+        eventType: EventType.TVPaymentEvent,
+    };
+
     cfm.cashFlowEvents.push(cfe);
 
     // third cash flow line (the payments)
-    cfe = new TimeValueEvent();
-    cfe.eventType = EventType.TVPaymentEvent;
-    cfe.eventDate = new Date(2001, 8, 3);
-    cfe.eventAmount = TV_UNKNOWN.AMOUNT;
-    cfe.eventNumber = 28;
+    cfe = {
+        eventAmount: TV_UNKNOWN.AMOUNT,
+        eventDate:  new Date(2001, 8, 3),
+        eventNumber: 28,
+        eventType: EventType.TVPaymentEvent,
+    };
+
     cfm.cashFlowEvents.push(cfe);
 
     // Act
@@ -126,7 +134,7 @@ describe("convert annual interest rate to effective interest rate", () => {
     });
 });
 
-describe ("future value tests", () => {
+describe("future value tests", () => {
     it("should equal 105.00", () => {
         const pv: number = 100;
         const interest: number = .05;
@@ -137,7 +145,7 @@ describe ("future value tests", () => {
     });
 });
 
-describe ("find interst rate", () => {
+describe("find interst rate", () => {
     it("simplest example", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
@@ -163,7 +171,7 @@ describe ("find interst rate", () => {
 
         expect(answer).toEqual(.11774);
         // tslint:disable-next-line:no-console
-        console.log("iterations: " + result.numberOfIterations);
+        console.log("iterations: " + result.iterations);
     });
 
     it("two payment example", () => {
@@ -197,8 +205,44 @@ describe ("find interst rate", () => {
 
         expect(answer).toEqual(.08013);
         // tslint:disable-next-line:no-console
-        console.log("iterations: " + result.numberOfIterations);
+        console.log("iterations: " + result.iterations);
         // tslint:disable-next-line:no-console
+        console.log("rate: " + result.unknownValue);
+    });
+
+    it("multi line example", () => {
+        const cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
+        cfm.compounding = Compounding.TVDailyCompound;
+
+        cfm.cashFlowEvents = [
+            {
+                eventAmount: 10500,
+                eventDate: new Date(2017, 0, 1),
+                eventNumber: 1,
+                eventType: EventType.TVLoanEvent,
+            },
+            {
+                eventAmount: 500,
+                eventDate: new Date(2017, 1, 1),
+                eventNumber: 5,
+                eventPeriod: 6,
+                eventType: EventType.TVPaymentEvent,
+            },
+            {
+                eventAmount: 9000,
+                eventDate: new Date(2017, 6, 1),
+                eventNumber: 1,
+                eventPeriod: 0,
+                eventType: EventType.TVPaymentEvent,
+            },
+        ];
+
+        const result = cfm.calculate();
+        const answer = +result.unknownValue.toFixed(5);
+
+        expect(answer).toEqual(.08013);
+        console.log("iterations: " + result.iterations);
         console.log("rate: " + result.unknownValue);
     });
 
