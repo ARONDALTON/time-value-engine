@@ -87,7 +87,7 @@ export class TimeValueCashFlowMatrix {
                     principle = item.eventAmount;
                     remaining = principle;
                     lastDate = item.eventDate;
-                    console.log("date: " + lastDate + " amount: " + item.eventAmount);
+                    // console.log("date: " + lastDate + " amount: " + item.eventAmount);
                 } else {
 
                     // nested loop...
@@ -100,7 +100,7 @@ export class TimeValueCashFlowMatrix {
                         remaining = remaining - principle;
                         lastDate = thisDate.toDate();
                         // tslint:disable-next-line:max-line-length
-                        console.log("date: " + lastDate + " amount: " + item.eventAmount + " interest: " + interest + " " + principle + " remaining " + remaining);
+                        // console.log("date: " + lastDate + " amount: " + item.eventAmount + " interest: " + interest + " " + principle + " remaining " + remaining);
                     }
                 }
 

@@ -30,3 +30,35 @@ let answer = cfm.calculate();
 
 console.log("Unknown value: " + answer.unknownValue);
 console.log("iterations: " + answer.numberOfIterations);
+
+// A multi-line example...
+cfm = new TimeValueCashFlowMatrix();
+cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
+cfm.compounding = Compounding.TVDailyCompound;
+
+cfm.cashFlowEvents = [
+    {
+        eventAmount: 10500,
+        eventDate: new Date(2017, 0, 1),
+        eventNumber: 1,
+        eventType: EventType.TVLoanEvent,
+    },
+    {
+        eventAmount: 500,
+        eventDate: new Date(2017, 1, 1),
+        eventNumber: 5,
+        eventPeriod: 6,
+        eventType: EventType.TVPaymentEvent,
+    },
+    {
+        eventAmount: 9000,
+        eventDate: new Date(2017, 6, 1),
+        eventNumber: 1,
+        eventType: EventType.TVPaymentEvent,
+    },
+];
+
+answer = cfm.calculate();
+
+console.log("Unknown value: " + answer.unknownValue);
+console.log("iterations: " + answer.numberOfIterations);

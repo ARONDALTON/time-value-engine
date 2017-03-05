@@ -233,7 +233,6 @@ describe("find interst rate", () => {
                 eventAmount: 9000,
                 eventDate: new Date(2017, 6, 1),
                 eventNumber: 1,
-                eventPeriod: 0,
                 eventType: EventType.TVPaymentEvent,
             },
         ];
@@ -241,7 +240,7 @@ describe("find interst rate", () => {
         const result = cfm.calculate();
         const answer = +result.unknownValue.toFixed(5);
 
-        expect(answer).toEqual(.08013);
+        expect(answer).toEqual(.20839);
         console.log("iterations: " + result.iterations);
         console.log("rate: " + result.unknownValue);
     });
