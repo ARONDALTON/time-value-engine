@@ -240,7 +240,7 @@ describe("find interst rate", () => {
         const result = cfm.calculate();
         const answer = +result.unknownValue.toFixed(5);
 
-        expect(answer).toEqual(.20839);
+        expect(answer).toEqual(.20834);
         console.log("iterations: " + result.iterations);
         console.log("rate: " + result.unknownValue);
     });

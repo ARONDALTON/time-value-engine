@@ -72,8 +72,9 @@ export class TimeValueCashFlowMatrix {
         let lastDate: Date;
         let i: number;
         let iterations: number = 0;
+        let solved: boolean = false;
 
-        while (delta > remainder) {
+        while (!solved) {
 
             let counter: number = 0;
             let days: number;
@@ -87,40 +88,50 @@ export class TimeValueCashFlowMatrix {
                     principle = item.eventAmount;
                     remaining = principle;
                     lastDate = item.eventDate;
-                    // console.log("date: " + lastDate + " amount: " + item.eventAmount);
+                    console.log("date: " + lastDate + " amount: " + item.eventAmount);
                 } else {
 
                     // nested loop...
                     // if this is five
                     for (let z = 0; z < item.eventNumber; z++) {
                         const thisDate = moment(item.eventDate).add(z, "months");
-                        days = (+thisDate - +lastDate) / 1000 / 60 / 60 / 24;
-                        interest = remaining * i * days;
-                        principle = item.eventAmount - interest;
-                        remaining = remaining - principle;
+                        days = +((+thisDate - +lastDate) / 1000 / 60 / 60 / 24).toFixed(0);
+                        interest = +(remaining * i * days).toFixed(2);
+                        principle = +(item.eventAmount - interest).toFixed(2);
+                        remaining = +(remaining - principle).toFixed(2);
                         lastDate = thisDate.toDate();
                         // tslint:disable-next-line:max-line-length
-                        // console.log("date: " + lastDate + " amount: " + item.eventAmount + " interest: " + interest + " " + principle + " remaining " + remaining);
+                        console.log("d: " + lastDate + "d: " + days + " a: " + item.eventAmount + " i: " + interest + " " + principle + " b " + remaining);
                     }
                 }
 
                 counter++;
             }
 
+            // say we're left with $1.00
+            // then delta = 1
+            // 1 - .001 = 0.999 -- which is greater than 0.001 
+
             delta = Math.abs(remaining);
 
-            if (remaining > remainder) {
-                // interest rate is too high
-                // we now know a new maxRate
-                maxRate = interestRate;
-            } else {
-                // interst rate is too low
-                // we now know a new minRate
-                minRate = interestRate;
-            }
-            interestRate = (maxRate + minRate) / 2;
+            if (delta >= 0 && delta <= remainder) {
 
-            iterations++;
+                solved = true;
+
+            } else {
+                if (remaining > remainder) {
+                    // interest rate is too high
+                    // we now know a new maxRate
+                    maxRate = interestRate;
+                } else {
+                    // interst rate is too low
+                    // we now know a new minRate
+                    minRate = interestRate;
+                }
+                interestRate = (maxRate + minRate) / 2;
+
+                iterations++;
+            }
         }
 
         const tvr = {

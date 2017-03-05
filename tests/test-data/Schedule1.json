@@ -1,0 +1,304 @@
+{
+	"version": "5.05.1",
+	"localeId": 1024,
+	"dateFormat": 0,
+	"dateSeparator": "/",
+	"decimalPlaces": 2,
+	"cfmLabel": "",
+	"computeMethod": 0,
+	"canadianBasis": 0,
+	"canadianOddDays": 0,
+	"compounding": 1,
+	"openBalance": 0,
+	"nominalAnnualRate": 0,
+	"yearLength": 365,
+	"defaultCompoundingPeriod": 6,
+	"defaultEventType": 8,
+	"wholeDollarOnly": 0,
+	"defaultSecondEventDateSameAsFirst": 0,
+	"eventNames": {
+		"includeStandardTValueEvent": 1,
+		"includeUserLoanAndPaymentEvents": 1,
+		"includeUserDepositAndWithdrawalEvents": 1,
+		"maxEventNameLength": 15,
+		"userLoanName1": "Lease",
+		"userLoanName2": "Commission",
+		"userLoanName3": "",
+		"userPaymentName1": "Lease Payment",
+		"userPaymentName2": "Residual",
+		"userPaymentName3": "",
+		"userDepositName1": "Invest",
+		"userDepositName2": "",
+		"userDepositName3": "",
+		"userWithdrawalName1": "Return",
+		"userWithdrawalName2": "",
+		"userWithdrawalName3": ""
+	},
+	"reportOptions": {
+	},
+	"events": [
+		{
+			"eventType": 8,
+			"eventDate": "01/01/2017",
+			"eventAmount": 105000000,
+			"eventNumber": 1
+		},
+		{
+			"eventType": 9,
+			"eventDate": "02/01/2017",
+			"eventAmount": 5000000,
+			"eventNumber": 1,
+			"eventPeriod": 6
+		},
+		{
+			"eventType": 9,
+			"eventDate": "07/01/2017",
+			"eventAmount": 90000000,
+			"eventNumber": 1
+		}
+	],
+	"pointsAndFees": {
+		"pointsPaidOnLoan": 0.000000000000000,
+		"prePaidInterestDays": 0,
+		"otherCharges": 0
+	}
+
+
+}
+// 	<ReportOptions>
+// 		<CombineUserColumns>0</CombineUserColumns>
+// 		<TotalsOnly>0</TotalsOnly>
+// 		<IncludeCompoundPeriod>1</IncludeCompoundPeriod>
+// 		<IncludePageBreakBeforeAmortization>0</IncludePageBreakBeforeAmortization>
+// 		<IncludeLabel>1</IncludeLabel>
+// 		<IncludeDate>1</IncludeDate>
+// 		<IncludeTime>1</IncludeTime>
+// 		<IncludeQuarterlyTotals>0</IncludeQuarterlyTotals>
+// 		<IncludeAnnualTotals>1</IncludeAnnualTotals>
+// 		<IncludeGrandTotals>1</IncludeGrandTotals>
+// 		<IncludeAPRInformation>0</IncludeAPRInformation>
+// 		<IncludeNotes>1</IncludeNotes>
+// 		<IncludeNominalRate>1</IncludeNominalRate>
+// 		<IncludeEffectiveRate>0</IncludeEffectiveRate>
+// 		<IncludePeriodicRate>0</IncludePeriodicRate>
+// 		<IncludeDailyRate>0</IncludeDailyRate>
+// 		<IncludeRateChanges>1</IncludeRateChanges>
+// 		<PrintToFit>1</PrintToFit>
+// 		<RoundingMessageLocation>3</RoundingMessageLocation>
+// 		<CashFlowDataLocation>1</CashFlowDataLocation>
+// 		<FiscalYearEndMonth>11</FiscalYearEndMonth>
+// 		<ReportRange>0</ReportRange>
+// 		<ReportRangeFromDate>0</ReportRangeFromDate>
+// 		<ReportRangeToDate>0</ReportRangeToDate>
+// 		<TopMargin>0.3</TopMargin>
+// 		<BottomMargin>0.75</BottomMargin>
+// 		<LeftMargin>0.5</LeftMargin>
+// 		<RightMargin>1</RightMargin>
+// 		<AmortizationHeader></AmortizationHeader>
+// 		<ShowHeader>1</ShowHeader>
+// 		<HeaderAlignment>0</HeaderAlignment>
+// 		<AmortizationFooter></AmortizationFooter>
+// 		<ShowFooter>1</ShowFooter>
+// 		<FooterAlignment>0</FooterAlignment>
+// 		<HeaderTemplateA></HeaderTemplateA>
+// 		<HeaderTemplateAAlignment>0</HeaderTemplateAAlignment>
+// 		<HeaderTemplateB></HeaderTemplateB>
+// 		<HeaderTemplateBAlignment>0</HeaderTemplateBAlignment>
+// 		<FooterTemplateA></FooterTemplateA>
+// 		<FooterTemplateAAlignment>0</FooterTemplateAAlignment>
+// 		<FooterTemplateB></FooterTemplateB>
+// 		<FooterTemplateBAlignment>0</FooterTemplateBAlignment>
+// 		<AmortizationFont>
+// 			<FontType>0</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>1</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 	<EventNames>
+
+// 	</EventNames>
+// 		<AmortizationFont>
+// 			<FontType>2</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>3</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>4</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>5</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>6</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>7</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>8</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 		<AmortizationFont>
+// 			<FontType>9</FontType>
+// 			<FontHeight>0</FontHeight>
+// 			<FontWidth>400</FontWidth>
+// 			<FontEscapement>0</FontEscapement>
+// 			<FontOrientation>0</FontOrientation>
+// 			<FontWeight>400</FontWeight>
+// 			<Italic>0</Italic>
+// 			<Underline>0</Underline>
+// 			<StrikeOut>0</StrikeOut>
+// 			<CharacterSet>0</CharacterSet>
+// 			<OutPrecision>0</OutPrecision>
+// 			<ClipPrecision>0</ClipPrecision>
+// 			<Quality>0</Quality>
+// 			<PitchAndFamily>0</PitchAndFamily>
+// 			<FontName>Arial</FontName>
+// 			<PointSizeTimes10>110</PointSizeTimes10>
+// 			<FontColor>0</FontColor>
+// 		</AmortizationFont>
+// 	</ReportOptions>
