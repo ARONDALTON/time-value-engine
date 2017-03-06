@@ -1,4 +1,5 @@
 import * as moment from "moment";
+import { AmortizationLine } from "./amortizationLine";
 import { Compounding, ComputeMethod, TV_UNKNOWN, YearLength } from "./enums";
 import { TimeValueEvent } from "./timeValueEvent";
 import { TimeValueResult } from "./timeValueResult";
@@ -14,14 +15,10 @@ export class TimeValueCashFlowMatrix {
     // The nominal interest rate (also known as an Annualized Percentage Rate or APR)
     // is the periodic interest rate multiplied by the number of periods per year.
     public nominalAnnualRate: number;
+    public effectiveAnnualRate: number;
     public yearLength: YearLength = YearLength.Y_365;
     public cashFlowEvents: TimeValueEvent[] = [];
 
-    // derived
-    // The effective interest rate is always calculated as if compounded annually. The effective
-    // rate is calculated in the following way, where r is the effective rate, i the nominal rate (as a decimal,
-    // e.g. 12% = 0.12), and n the number of compounding periods per year (for example, 12 for monthly
-    // compounding):
     public effectiveInterestRate: number;
     public periodicInterestRate: number;
 
@@ -29,103 +26,135 @@ export class TimeValueCashFlowMatrix {
         if (this.nominalAnnualRate === TV_UNKNOWN.RATE) {
             return this.findInterestRate();
         } else {
-            return new TimeValueResult();
+            return {
+                amortizationSchedule: [],
+                dailyRate: 0,
+                iterations: 0,
+                roundingAmount: 0,
+                roundingDate: new Date(),
+                unknownValue: 0,
+            };
         }
     }
 
-    // http://simplestudies.com/relationship-between-effective-interest-rate-and-compound-interest.html
     // http://www.calculatorsoup.com/calculators/financial/nominal-interest-rate-calculator.php
-    public getEffectiveInterestRate(): number {
+    public convertAnnualToEffectiveRate(): number {
 
+        let effectiveRate: number;
         const i = this.nominalAnnualRate;
-        const n = this.getCompoudingPeriods();
-
-        const ret = Math.pow(1 + i / n, n) - 1;
-        return ret;
+        if (this.compounding !== Compounding.TVContinuousCompound) {
+            const n = +this.compounding;
+            effectiveRate = Math.pow(1 + i / n, n) - 1;
+        } else {
+            // i = e^r - 1
+            effectiveRate = Math.pow(Math.E, i / 100) - 1;
+        }
+        return effectiveRate;
     }
 
-    public getCompoudingPeriods(): number {
-        if (this.compounding < 100) {
-            return this.compounding;
+    private convertEffectiveToAnnualRate(): number {
+
+        let nominalAnnualRate: number;
+
+        const i = this.effectiveAnnualRate;
+        if (this.compounding !== Compounding.TVContinuousCompound) {
+            const n = +this.compounding;
+            // r = m × [ ( 1 + i)1/m - 1 ]
+            nominalAnnualRate = n * (Math.pow(1 + i, 1 / n) - 1);
         } else {
-            if (this.compounding === Compounding.TVDailyCompound) {
-                return this.yearLength;
-            } else {
-                throw new RangeError("need to figure this out");
-            }
+            // r = ln(i + 1).
+            nominalAnnualRate = Math.log(i + 1);
         }
+        return nominalAnnualRate;
     }
 
     private findInterestRate(): TimeValueResult {
 
         let interestRate: number = 0;
-        let minRate = -10000;
-        let maxRate = 10000;
+        let minRate = -1000;
+        let maxRate = 1000;
 
-        // setup: we have a matrix of events...
         const events = this.cashFlowEvents;
         let interest: number;
-        let principle: number;
-        let remaining: number;
+        let principal: number;
+        let balance: number;
         const remainder: number = 0.001;
         let delta: number = 1; // needs to be greater than zero
         let lastDate: Date;
         let i: number;
         let iterations: number = 0;
         let solved: boolean = false;
+        let amortizationLine;
+        let sequence = 0;
+        let amortizationSchedule: AmortizationLine[] = [];
 
         while (!solved) {
 
             let counter: number = 0;
             let days: number;
-            for (const item of events){
+            i = interestRate / 365; // daily rate
+            amortizationSchedule = [];
+            sequence = 0;
 
-                i = interestRate / 100 / 365; // daily rate
+            for (const item of events){
 
                 // for now, assume loan is first item...
                 if (counter === 0) {
-                    interest = 0; // calculate interest;
-                    principle = item.eventAmount;
-                    remaining = principle;
+                    balance = item.eventAmount;
+
+                    amortizationLine = {
+                        amortizationLineType: item.eventType,
+                        balance,
+                        date: item.eventDate,
+                        days: 0,
+                        interest: 0,
+                        payment: 0,
+                        principal: 0,
+                        sequence,
+                    };
+
+                    amortizationSchedule.push(amortizationLine);
+                    sequence++;
                     lastDate = item.eventDate;
-                    console.log("date: " + lastDate + " amount: " + item.eventAmount);
                 } else {
 
-                    // nested loop...
-                    // if this is five
                     for (let z = 0; z < item.eventNumber; z++) {
                         const thisDate = moment(item.eventDate).add(z, "months");
                         days = +((+thisDate - +lastDate) / 1000 / 60 / 60 / 24).toFixed(0);
-                        interest = +(remaining * i * days).toFixed(2);
-                        principle = +(item.eventAmount - interest).toFixed(2);
-                        remaining = +(remaining - principle).toFixed(2);
+                        interest = +(balance * i * days).toFixed(2);
+                        principal = +(item.eventAmount - interest).toFixed(2);
+                        balance = +(balance - principal).toFixed(2);
                         lastDate = thisDate.toDate();
-                        // tslint:disable-next-line:max-line-length
-                        console.log("d: " + lastDate + "d: " + days + " a: " + item.eventAmount + " i: " + interest + " " + principle + " b " + remaining);
+
+                        amortizationLine = {
+                            amortizationLineType: item.eventType,
+                            balance,
+                            date: lastDate,
+                            days,
+                            interest,
+                            payment: item.eventAmount,
+                            principal,
+                            sequence,
+                        };
+                        amortizationSchedule.push(amortizationLine);
+                        sequence++;
                     }
                 }
-
                 counter++;
             }
 
-            // say we're left with $1.00
-            // then delta = 1
-            // 1 - .001 = 0.999 -- which is greater than 0.001 
-
-            delta = Math.abs(remaining);
+            delta = Math.abs(balance);
 
             if (delta >= 0 && delta <= remainder) {
 
                 solved = true;
 
             } else {
-                if (remaining > remainder) {
+                if (balance > remainder) {
                     // interest rate is too high
-                    // we now know a new maxRate
                     maxRate = interestRate;
                 } else {
                     // interst rate is too low
-                    // we now know a new minRate
                     minRate = interestRate;
                 }
                 interestRate = (maxRate + minRate) / 2;
@@ -134,11 +163,16 @@ export class TimeValueCashFlowMatrix {
             }
         }
 
+        this.effectiveAnnualRate = i * 365;
+        this.nominalAnnualRate = this.convertEffectiveToAnnualRate();
+
         const tvr = {
+            amortizationSchedule,
+            dailyRate: i,
             iterations,
-            roundingAmount: 0,
+            roundingAmount: this.nominalAnnualRate, // 0, <<- Hack!!
             roundingDate: new Date(2016, 2, 1),
-            unknownValue: i * 365,
+            unknownValue: this.effectiveAnnualRate,
         };
 
         return tvr;

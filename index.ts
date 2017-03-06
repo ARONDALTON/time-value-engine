@@ -1,4 +1,3 @@
-export { TimeValueAmortizationSchedule } from "./src/timeValueAmortizationSchedule";
 export { TimeValueCashFlowMatrix } from "./src/timeValueCashFlowMatrix";
 export { TimeValueEvent } from "./src/timeValueEvent";
 export { TimeValueResult } from "./src/timeValueResult";

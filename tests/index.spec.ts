@@ -21,14 +21,6 @@ describe("my first test", () => {
     });
 });
 
-// describe("TimeValueCashFlowMatrix tests", () => {
-
-// });
-
-// describe("TimeValueEvent tests", () => {
-
-// });
-
 describe("Setup TValue Problem", () => {
     /*
     Facts   Miller Equipment Co. sells machinery to Wendland on June 11, 2001 for $27,000.
@@ -112,7 +104,7 @@ describe("convert annual interest rate to effective interest rate", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .06;
         cfm.compounding = Compounding.TVMonthlyCompound;
-        const ear = cfm.getEffectiveInterestRate();
+        const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.0617);
     });
@@ -120,7 +112,7 @@ describe("convert annual interest rate to effective interest rate", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .1;
         cfm.compounding = Compounding.TVAnnualCompound;
-        const ear = cfm.getEffectiveInterestRate();
+        const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.1000);
     });
@@ -128,9 +120,17 @@ describe("convert annual interest rate to effective interest rate", () => {
         const cfm = new TimeValueCashFlowMatrix();
         cfm.nominalAnnualRate = .199;
         cfm.compounding = Compounding.TVDailyCompound;
-        const ear = cfm.getEffectiveInterestRate();
+        const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.2201);
+    });
+    it("test 3", () => {
+        const cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = .15;
+        cfm.compounding = Compounding.TVDailyCompound;
+        const ear = cfm.convertAnnualToEffectiveRate();
+        const answer = +(ear.toFixed(4));
+        expect(answer).toEqual(0.1618);
     });
 });
 
@@ -139,7 +139,6 @@ describe("future value tests", () => {
         const pv: number = 100;
         const interest: number = .05;
         const n: number = 1;
-
         const answer = FutureValue(pv, interest, n);
         expect(answer).toBe(105);
     });
@@ -170,7 +169,6 @@ describe("find interst rate", () => {
         const answer = +result.unknownValue.toFixed(5);
 
         expect(answer).toEqual(.11774);
-        // tslint:disable-next-line:no-console
         console.log("iterations: " + result.iterations);
     });
 
@@ -242,7 +240,37 @@ describe("find interst rate", () => {
 
         expect(answer).toEqual(.20834);
         console.log("iterations: " + result.iterations);
-        console.log("rate: " + result.unknownValue);
+        console.log("nominal annual rate: " + cfm.nominalAnnualRate);
+        console.log("effective annual rate: " + cfm.effectiveAnnualRate);
     });
 
+    it("five year simple", () => {
+        const cfm = new TimeValueCashFlowMatrix();
+        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
+        cfm.compounding = Compounding.TVMonthlyCompound;
+
+        cfm.cashFlowEvents = [
+            {
+                eventAmount: 100000,
+                eventDate: new Date(2017, 0, 1),
+                eventNumber: 1,
+                eventType: EventType.TVLoanEvent,
+            },
+            {
+                eventAmount: 1819.17,
+                eventDate: new Date(2017, 1, 1),
+                eventNumber: 60,
+                eventPeriod: 6,
+                eventType: EventType.TVPaymentEvent,
+            },
+        ];
+
+        const result = cfm.calculate();
+        const answer = +result.unknownValue.toFixed(5);
+
+        expect(answer).toEqual(.03502);
+        console.log("iterations: " + result.iterations);
+        console.log("effective rate: " + cfm.effectiveAnnualRate);
+        console.log("nominal rate: " + cfm.nominalAnnualRate);
+    });
 });

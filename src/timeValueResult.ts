@@ -1,6 +1,11 @@
-export class TimeValueResult {
-    public unknownValue: number = 0;
-    public roundingAmount: number = 0;
-    public roundingDate: Date;
-    public iterations: number = 0;
+import { AmortizationLine } from "./amortizationLine";
+
+// tslint:disable-next-line:interface-name
+export interface TimeValueResult {
+    dailyRate: number;
+    unknownValue: number;
+    roundingAmount: number;
+    roundingDate: Date;
+    iterations: number;
+    amortizationSchedule: AmortizationLine[];
 }
