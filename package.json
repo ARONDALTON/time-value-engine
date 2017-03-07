@@ -7,13 +7,9 @@
     "url": "git+https://github.com/kevinsherman/time-value-engine.git"
   },
   "scripts": {
-    "preptest": "tsc -p tsconfig.test.json",
-    "test": "karma start karma.conf.js",
-    "clean": "rimraf dist*/",
-    "prebuild": "npm run clean",
+    "test": "karma start",
     "build": "tsc",
-    "tsc:w": "tsc -w",
-    "lint": "tslint **/*.ts --e **/*.d.ts",
+    "lint": "tslint **/*.ts -e '**/*.d.ts'",
     "postinstall": "npm run build"
   },
   "keywords": [
@@ -32,14 +28,14 @@
   "homepage": "https://github.com/kevinsherman/time-value-engine#readme",
   "devDependencies": {
     "@types/jasmine": "^2.5.43",
-    "concurrently": "^3.4.0",
+    "jasmine": "^2.5.3",
     "jasmine-core": "^2.5.2",
-    "jasmine-node": "^1.14.5",
     "karma": "^1.5.0",
     "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-webpack": "^2.0.2",
-    "rimraf": "^2.6.0",
+    "phantomjs-prebuilt": "^2.1.14",
+    "ts-loader": "^2.0.1",
     "tslint": "^4.4.2",
     "typescript": "^2.2.1",
     "webpack": "^2.2.1"

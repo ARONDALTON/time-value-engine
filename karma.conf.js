@@ -1,21 +1,27 @@
-module.exports = function(config) {
+var webpackConfig = require('./webpack.config');
+module.exports = function (config) {
   config.set({
-    browsers: [
-        'PhantomJS'
-    ],
-    frameworks: [
-        'jasmine'
-    ],
+    basePath: '',
+    frameworks: ['jasmine'],
     files: [
-        'dist-tests/tests/index.spec.js'
+      'test/**/*.ts'
     ],
-    plugins: [
-        'karma-webpack',
-        'karma-jasmine',
-        'karma-phantomjs-launcher'
+    exclude: [
     ],
     preprocessors: {
-        'dist-tests/tests/index.spec.js': ['webpack'] 
-    }
- });
+      'test/**/*.ts': ['webpack']
+    },
+    webpack: {
+      module: webpackConfig.module,
+      resolve: webpackConfig.resolve
+    },
+    reporters: ['progress'],
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['PhantomJS'],
+    singleRun: false,
+    concurrency: Infinity
+  })
 };
