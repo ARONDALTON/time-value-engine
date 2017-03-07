@@ -2,24 +2,12 @@ import {
     Compounding,
     ComputeMethod,
     EventType,
-    FutureValue,
-    ILoanParameters,
-    PaymentOnFixedRateLoan,
-    TimeValueCashFlowMatrix,
+    TimeValueCalculator,
     TimeValueEvent,
     TimeValueResult,
-    TV_UNKNOWN,
+    UNKNOWN,
     YearLength,
 } from "../index";
-
-describe("my first test", () => {
-    it("should be true", () => {
-        expect(true).toBeTruthy();
-    });
-    it("should be false", () => {
-        expect(false).toBeFalsy();
-    });
-});
 
 describe("Setup TValue Problem", () => {
     /*
@@ -33,15 +21,15 @@ describe("Setup TValue Problem", () => {
     */
 
     // Arrange:
-    const cfm = new TimeValueCashFlowMatrix();
+    const cfm = new TimeValueCalculator();
     let cfe: TimeValueEvent;
     let tvr: TimeValueResult;
     let payment: number; // <-- What we're trying to find
 
-    cfm.compounding = Compounding.TVMonthlyCompound;
+    cfm.compounding = Compounding.MonthlyCompound;
     cfm.yearLength = YearLength.Y_365;
     cfm.label = "Wendland Equipment";
-    cfm.computeMethod = ComputeMethod.TVNormalAmortization;
+    cfm.computeMethod = ComputeMethod.NormalAmortization;
     cfm.nominalAnnualRate = 0.09;
 
     // first cash flow line (the loan)
@@ -49,7 +37,7 @@ describe("Setup TValue Problem", () => {
         eventAmount: 27000,
         eventDate:  new Date(2001, 6, 11),
         eventNumber: 1,
-        eventType: EventType.TVLoanEvent,
+        eventType: EventType.LoanEvent,
     };
 
     cfm.cashFlowEvents.push(cfe);
@@ -59,17 +47,17 @@ describe("Setup TValue Problem", () => {
         eventAmount: 4000,
         eventDate:  new Date(2001, 6, 11),
         eventNumber: 1,
-        eventType: EventType.TVPaymentEvent,
+        eventType: EventType.PaymentEvent,
     };
 
     cfm.cashFlowEvents.push(cfe);
 
     // third cash flow line (the payments)
     cfe = {
-        eventAmount: TV_UNKNOWN.AMOUNT,
+        eventAmount: UNKNOWN.AMOUNT,
         eventDate:  new Date(2001, 8, 3),
         eventNumber: 28,
-        eventType: EventType.TVPaymentEvent,
+        eventType: EventType.PaymentEvent,
     };
 
     cfm.cashFlowEvents.push(cfe);
@@ -85,83 +73,59 @@ describe("Setup TValue Problem", () => {
     });
 });
 
-describe("should calculate payment on a fixed rate loan", () => {
-    it("should equal 699.21", () => {
-        const params: ILoanParameters = {
-            amount: 100000,
-            interest: 0.075,
-            term: 360,
-        };
-
-        const monthlyPayment = +(PaymentOnFixedRateLoan(params).toFixed(2));
-        const tvAnswer = 699.21;
-        expect(monthlyPayment).toEqual(tvAnswer);
-    });
-});
-
 describe("convert annual interest rate to effective interest rate", () => {
     it("test 1", () => {
-        const cfm = new TimeValueCashFlowMatrix();
+        const cfm = new TimeValueCalculator();
         cfm.nominalAnnualRate = .06;
-        cfm.compounding = Compounding.TVMonthlyCompound;
+        cfm.compounding = Compounding.MonthlyCompound;
         const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.0617);
     });
     it("test 2", () => {
-        const cfm = new TimeValueCashFlowMatrix();
+        const cfm = new TimeValueCalculator();
         cfm.nominalAnnualRate = .1;
-        cfm.compounding = Compounding.TVAnnualCompound;
+        cfm.compounding = Compounding.AnnualCompound;
         const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.1000);
     });
     it("test 2", () => {
-        const cfm = new TimeValueCashFlowMatrix();
+        const cfm = new TimeValueCalculator();
         cfm.nominalAnnualRate = .199;
-        cfm.compounding = Compounding.TVDailyCompound;
+        cfm.compounding = Compounding.DailyCompound;
         const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.2201);
     });
     it("test 3", () => {
-        const cfm = new TimeValueCashFlowMatrix();
+        const cfm = new TimeValueCalculator();
         cfm.nominalAnnualRate = .15;
-        cfm.compounding = Compounding.TVDailyCompound;
+        cfm.compounding = Compounding.DailyCompound;
         const ear = cfm.convertAnnualToEffectiveRate();
         const answer = +(ear.toFixed(4));
         expect(answer).toEqual(0.1618);
     });
 });
 
-describe("future value tests", () => {
-    it("should equal 105.00", () => {
-        const pv: number = 100;
-        const interest: number = .05;
-        const n: number = 1;
-        const answer = FutureValue(pv, interest, n);
-        expect(answer).toBe(105);
-    });
-});
-
 describe("find interst rate", () => {
     it("simplest example", () => {
-        const cfm = new TimeValueCashFlowMatrix();
-        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
-        cfm.compounding = Compounding.TVDailyCompound;
+        const cfm = new TimeValueCalculator();
+        cfm.nominalAnnualRate = UNKNOWN.RATE;
+        cfm.compounding = Compounding.DailyCompound;
 
         cfm.cashFlowEvents = [
             {
                 eventAmount: 10000,
                 eventDate: new Date(2016, 0, 1),
                 eventNumber: 1,
-                eventType: EventType.TVLoanEvent,
+                eventType: EventType.LoanEvent,
             },
             {
                 eventAmount: 10100,
                 eventDate: new Date(2016, 1, 1),
                 eventNumber: 1,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
         ];
 
@@ -173,28 +137,28 @@ describe("find interst rate", () => {
     });
 
     it("two payment example", () => {
-        const cfm = new TimeValueCashFlowMatrix();
-        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
-        cfm.compounding = Compounding.TVDailyCompound;
+        const cfm = new TimeValueCalculator();
+        cfm.nominalAnnualRate = UNKNOWN.RATE;
+        cfm.compounding = Compounding.DailyCompound;
 
         cfm.cashFlowEvents = [
             {
                 eventAmount: 10000,
                 eventDate: new Date(2016, 0, 1),
                 eventNumber: 1,
-                eventType: EventType.TVLoanEvent,
+                eventType: EventType.LoanEvent,
             },
             {
                 eventAmount: 5050,
                 eventDate: new Date(2016, 1, 1),
                 eventNumber: 1,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
             {
                 eventAmount: 5050,
                 eventDate: new Date(2016, 2, 1),
                 eventNumber: 1,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
         ];
 
@@ -202,36 +166,34 @@ describe("find interst rate", () => {
         const answer = +result.unknownValue.toFixed(5);
 
         expect(answer).toEqual(.08013);
-        // tslint:disable-next-line:no-console
         console.log("iterations: " + result.iterations);
-        // tslint:disable-next-line:no-console
         console.log("rate: " + result.unknownValue);
     });
 
     it("multi line example", () => {
-        const cfm = new TimeValueCashFlowMatrix();
-        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
-        cfm.compounding = Compounding.TVDailyCompound;
+        const cfm = new TimeValueCalculator();
+        cfm.nominalAnnualRate = UNKNOWN.RATE;
+        cfm.compounding = Compounding.DailyCompound;
 
         cfm.cashFlowEvents = [
             {
                 eventAmount: 10500,
                 eventDate: new Date(2017, 0, 1),
                 eventNumber: 1,
-                eventType: EventType.TVLoanEvent,
+                eventType: EventType.LoanEvent,
             },
             {
                 eventAmount: 500,
                 eventDate: new Date(2017, 1, 1),
                 eventNumber: 5,
                 eventPeriod: 6,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
             {
                 eventAmount: 9000,
                 eventDate: new Date(2017, 6, 1),
                 eventNumber: 1,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
         ];
 
@@ -245,23 +207,23 @@ describe("find interst rate", () => {
     });
 
     it("five year simple", () => {
-        const cfm = new TimeValueCashFlowMatrix();
-        cfm.nominalAnnualRate = TV_UNKNOWN.RATE;
-        cfm.compounding = Compounding.TVMonthlyCompound;
+        const cfm = new TimeValueCalculator();
+        cfm.nominalAnnualRate = UNKNOWN.RATE;
+        cfm.compounding = Compounding.MonthlyCompound;
 
         cfm.cashFlowEvents = [
             {
                 eventAmount: 100000,
                 eventDate: new Date(2017, 0, 1),
                 eventNumber: 1,
-                eventType: EventType.TVLoanEvent,
+                eventType: EventType.LoanEvent,
             },
             {
                 eventAmount: 1819.17,
                 eventDate: new Date(2017, 1, 1),
                 eventNumber: 60,
                 eventPeriod: 6,
-                eventType: EventType.TVPaymentEvent,
+                eventType: EventType.PaymentEvent,
             },
         ];
 

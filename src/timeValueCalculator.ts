@@ -1,13 +1,13 @@
 import * as moment from "moment";
 import { AmortizationLine } from "./amortizationLine";
-import { Compounding, ComputeMethod, TV_UNKNOWN, YearLength } from "./enums";
+import { Compounding, ComputeMethod, UNKNOWN, YearLength } from "./enums";
 import { TimeValueEvent } from "./timeValueEvent";
 import { TimeValueResult } from "./timeValueResult";
 
 // tslint:no-console
 
 // stores information about a particular problem you are trying to solve
-export class TimeValueCashFlowMatrix {
+export class TimeValueCalculator {
     public label: string;
     public decimalPlaces: number = 2;
     public computeMethod: ComputeMethod;
@@ -23,7 +23,7 @@ export class TimeValueCashFlowMatrix {
     public periodicInterestRate: number;
 
     public calculate(): TimeValueResult {
-        if (this.nominalAnnualRate === TV_UNKNOWN.RATE) {
+        if (this.nominalAnnualRate === UNKNOWN.RATE) {
             return this.findInterestRate();
         } else {
             return {
@@ -42,7 +42,7 @@ export class TimeValueCashFlowMatrix {
 
         let effectiveRate: number;
         const i = this.nominalAnnualRate;
-        if (this.compounding !== Compounding.TVContinuousCompound) {
+        if (this.compounding !== Compounding.ContinuousCompound) {
             const n = +this.compounding;
             effectiveRate = Math.pow(1 + i / n, n) - 1;
         } else {
@@ -57,7 +57,7 @@ export class TimeValueCashFlowMatrix {
         let nominalAnnualRate: number;
 
         const i = this.effectiveAnnualRate;
-        if (this.compounding !== Compounding.TVContinuousCompound) {
+        if (this.compounding !== Compounding.ContinuousCompound) {
             const n = +this.compounding;
             // r = m × [ ( 1 + i)1/m - 1 ]
             nominalAnnualRate = n * (Math.pow(1 + i, 1 / n) - 1);
