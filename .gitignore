@@ -13,6 +13,7 @@ coverage
 *.js
 !karma.conf.js
 !npm-test.js
+!webpack.config.js
 
 *.map
 *.d.ts
