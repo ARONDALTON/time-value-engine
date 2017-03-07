@@ -15,6 +15,13 @@ module.exports = function (config) {
       module: webpackConfig.module,
       resolve: webpackConfig.resolve
     },
+     // Webpack please don't spam the console when running in karma!
+    webpackMiddleware: {
+      noInfo: true,
+      stats: {
+        chunks: false
+      }
+    },
     reporters: ['mocha'],
     port: 9876,
     colors: true,
