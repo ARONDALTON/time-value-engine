@@ -1,0 +1,20 @@
+{
+	"decimalPlaces": 2,
+	"compounding": 365,
+	"nominalAnnualRate": "",
+	"yearLength": 365,
+	"events": [
+		{
+			"eventType": 8,
+			"eventDate": "01/01/2016",
+			"eventAmount": 10000,
+			"eventNumber": 1
+		},
+		{
+			"eventType": 9,
+			"eventDate": "02/01/2017",
+			"eventAmount": 10100,
+			"eventNumber": 1
+		}
+	]
+}

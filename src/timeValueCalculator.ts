@@ -4,7 +4,14 @@ import { Compounding, ComputeMethod, UNKNOWN, YearLength } from "./enums";
 import { TimeValueEvent } from "./timeValueEvent";
 import { TimeValueResult } from "./timeValueResult";
 
-// tslint:no-console
+// tslint:disable-next-line:interface-name
+// tslint:disable-next-line:class-name
+export interface Input {
+        yearLength: number;
+        compounding: number;
+        decimalPlaces: number;
+        events: TimeValueEvent[];
+}
 
 // stores information about a particular problem you are trying to solve
 export class TimeValueCalculator {
@@ -21,6 +28,21 @@ export class TimeValueCalculator {
 
     public effectiveInterestRate: number;
     public periodicInterestRate: number;
+
+    public load(input: Input): void {
+        this.yearLength = input.yearLength;
+        this.compounding = input.compounding;
+        this.decimalPlaces = input.decimalPlaces;
+        input.events.forEach((item) => {
+            const event: TimeValueEvent = {
+                eventAmount: item.eventAmount,
+                eventDate: item.eventDate,
+                eventNumber: item.eventNumber,
+                eventType: item.eventType,
+            };
+            this.cashFlowEvents.push(event);
+        });
+    }
 
     public calculate(): TimeValueResult {
         if (this.nominalAnnualRate === UNKNOWN.RATE) {
