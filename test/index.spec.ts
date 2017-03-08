@@ -1,4 +1,3 @@
-// cimport * as shush from "shush";
 import {
     Compounding,
     ComputeMethod,
@@ -9,15 +8,6 @@ import {
     UNKNOWN,
     YearLength,
 } from "../index";
-import fs = require("fs");
-
-// describe("test shush", () => {
-//     it("shush...", () => {
-//         // const f = fs.readFileSync("./test-data/01_simple.json", "utf8");
-//         // const fi = JSON.parse(f);
-//         // expect(fi.decimalPlaces).toBe(2);
-//     });
-// });
 
 describe("Setup TValue Problem", () => {
     /*

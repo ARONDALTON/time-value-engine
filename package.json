@@ -36,7 +36,6 @@
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-webpack": "^2.0.2",
     "phantomjs-prebuilt": "^2.1.14",
-    "shush": "^1.0.0",
     "ts-loader": "^2.0.1",
     "tslint": "^4.4.2",
     "typescript": "^2.2.1",
